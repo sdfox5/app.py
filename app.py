@@ -68,12 +68,11 @@ def TOKEN_MAKER(OLD_ACCESS_TOKEN, NEW_ACCESS_TOKEN, OLD_OPEN_ID, NEW_OPEN_ID, ui
         BASE64_TOKEN = BASE64_TOKEN[:second_dot_index + 44]
         return BASE64_TOKEN
 
-@app.route('/check_token', methods=['POST'])
+@app.route('/get', methods=['GET'])
 def check_token():
     try:
-        data = request.json
-        uid = data['uid']
-        password = data['password']
+        uid = request.args.get('uid')
+        password = request.args.get('password')
         url = "https://100067.connect.garena.com/oauth/guest/token/grant"
         headers = {"Host": "100067.connect.garena.com", "User-Agent": "GarenaMSDK/4.0.19P4(G011A ;Android 9;en;US;)", "Content-Type": "application/x-www-form-urlencoded", "Accept-Encoding": "gzip, deflate, br", "Connection": "close", }
         data = {"uid": f"{uid}", "password": f"{password}", "response_type": "token", "client_type": "2", "client_secret": "", "client_id": "100067", }
@@ -85,11 +84,11 @@ def check_token():
         OLD_OPEN_ID = "e32fabfd33fd3e5d0c19547b13727cb9"
         token = TOKEN_MAKER(OLD_ACCESS_TOKEN, NEW_ACCESS_TOKEN, OLD_OPEN_ID, NEW_OPEN_ID, uid)
         if token:
-            return {"status": "success", "token": token}
+            return jsonify({"status": "success", "token": token})
         else:
-            return {"status": "failure", "message": "Failed to generate token"}
+            return jsonify({"status": "failure", "message": "Failed to generate token"})
     except Exception as e:
-        return {"status": "error", "message": str(e)}
+        return jsonify({"status": "error", "message": str(e)})
 
 if __name__ == '__main__':
     app.run(debug=False)
