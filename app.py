@@ -85,11 +85,11 @@ def check_token():
         OLD_OPEN_ID = "e32fabfd33fd3e5d0c19547b13727cb9"
         token = TOKEN_MAKER(OLD_ACCESS_TOKEN, NEW_ACCESS_TOKEN, OLD_OPEN_ID, NEW_OPEN_ID, uid)
         if token:
-            return jsonify({"status": "success", "token": token})
+            return {"status": "success", "token": token}
         else:
-            return jsonify({"status": "failure", "message": "Failed to generate token"})
+            return {"status": "failure", "message": "Failed to generate token"}
     except Exception as e:
-        return jsonify({"status": "error", "message": str(e)})
+        return {"status": "error", "message": str(e)}
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(debug=False)
