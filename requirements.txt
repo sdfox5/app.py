@@ -1,5 +1,7 @@
-Flask==2.3.2
-pycryptodome==3.18.0
-protobuf==4.24.0
-requests==2.31.0
-urllib3==2.0.7
+Flask 
+requests
+protobuf
+protobuf_decoder
+pyjwt
+urllib3
+pycryptodome
