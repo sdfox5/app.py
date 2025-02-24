@@ -4,5 +4,5 @@ protobuf
 protobuf_decoder
 pyjwt
 urllib3
-gunicorn==20.1.0
+gunicorn
 pycryptodome
